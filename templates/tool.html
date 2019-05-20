@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+
+<title>Gourd</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="css/multiselect.css">
+
+<script rel="script" src="js/multiselect.js"></script>
+
+
+
+
+
+
+
+<!-- polyfills so the demo works on old browsers, like IE -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
+    <script src="https://unpkg.com/bluebird@3.5.2/js/browser/bluebird.js"></script>
+    <script src="https://unpkg.com/whatwg-fetch@3.0.0/dist/fetch.umd.js"></script>
+
+    <!-- libs used by demo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
+    <script src="https://unpkg.com/webcola@3.3.8/WebCola/cola.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.js"></script>
+    <script src="https://unpkg.com/tippy.js@2.6.0/dist/tippy.all.js"></script>
+
+    <!-- cy libs -->
+    <script src="js/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/cytoscape-cola@2.2.3/cytoscape-cola.js"></script>
+    <script src="https://unpkg.com/cytoscape-popper@1.0.2/cytoscape-popper.js"></script>
+
+    <!-- demo src-->
+<script>
+    {% include "code.js" %}
+
+</script>
+
+
+
+
+
+
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+
+
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="/tool" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">The tool</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
+
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="tool.html" class="w3-bar-item w3-button w3-padding-large">Tool</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">About</a>
+
+  </div>
+</div>
+  
+  
+  <div>
+     <div class="split left">
+  <div class="centered">
+    <h2>Checkboxen</h2>
+    <p>
+<div class="sidenav">
+
+
+
+
+
+
+   {% for key, waarde in dic.items() %}
+               <select id={{ key }} multiple>
+
+
+      {% for item in waarde %}
+       	<option value={{ loop.index }}>{{ item }}</option>
+
+   {% endfor %}
+       </select>
+
+  {% endfor %}
+
+
+  </div>
+
+
+    </p>
+  </div>
+</div>
+
+<div class="split right">
+  <div class="centered">
+
+
+
+    <div id="cy"></div>
+
+    <span class="fa fa-bars config-toggle" id="config-toggle"></span>
+
+    <div id="config" class="config">
+
+
+
+</div>
+  </div>
+</div> 
+  </div>
+  </body>
+
+<script>
+    {{ javaScriptCode|safe }}
+
+
+    </script>
+
+
+
+

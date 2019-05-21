@@ -2,7 +2,6 @@
   height: 100%;
   position: fixed;
   z-index: 1;
-  top: 100px;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -10,12 +9,14 @@
 /* Control the left side */
 .left {
   left: 0;
-  width: 30%;
+  width: 15%;
+  top: 0px;
 
 }
 
 /* Control the right side */
 .right {
+  top:100px;
   right: 0;
   width: 70%;
 
@@ -133,24 +134,21 @@
 
 
 
-
-
-
 #cy {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 17em;
+  border:solid 2px red;
 }
 
 .config {
-  position: absolute;
+  position: relative;
   right: 0;
   top: 0;
   bottom: 0;
   width: 17em;
-  background: rgba(0, 0, 0, 0.666);
   box-sizing: border-box;
   padding: 1em;
   color: #fff;

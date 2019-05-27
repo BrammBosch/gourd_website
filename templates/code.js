@@ -200,15 +200,7 @@ Promise.all([
       var $links = [
         {
           name: 'GeneCard',
-          url: 'http://www.genecards.org/cgi-bin/carddisp.pl?gene=' + g
-        },
-        {
-          name: 'UniProt search',
-          url: 'http://www.uniprot.org/uniprot/?query='+ g +'&fil=organism%3A%22Homo+sapiens+%28Human%29+%5B9606%5D%22&sort=score'
-        },
-        {
-          name: 'GeneMANIA',
-          url: 'http://genemania.org/search/human/' + g
+          url: 'google.com/' + g
         }
       ].map(function( link ){
         return h('a', { target: '_blank', href: link.url, 'class': 'tip-link' }, [ t(link.name) ]);
@@ -225,10 +217,6 @@ Promise.all([
       });
     });
 
-    $('#config-toggle').addEventListener('click', function(){
-      $('body').classList.toggle('config-closed');
 
-      cy.resize();
-    });
 
 });

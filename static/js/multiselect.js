@@ -246,6 +246,7 @@ Multiselect.prototype = {
             for (var c = '', d = 0; d < (5 > b.length ? b.length : 5); d++) c += b[d].innerText + ', ';
             //c = c.substr(0, c.length - 2), 20 < c.length && (c = c.substr(0, 17) + '...')
             c = naam
+
         }
         b.length == document.getElementById(a._getItemListIdentifier()).querySelectorAll('ul li').length && (c = naam), document.getElementById(a._getInputFieldIdentifier()).value = c ? c : naam
     },

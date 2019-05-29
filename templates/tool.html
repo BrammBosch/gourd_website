@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="">
 
-<title>Gourd</title>
+<title>Gourd goru</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -10,10 +10,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="css/multiselect.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/table.css">
+
+
 
 <script rel="script" src="js/multiselect.js"></script>
 <script rel="script" src="js/navbar.js"></script>
 <script rel="script" src="js/submit.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script rel="script" src="js/chord.js"></script>
 
 
 
@@ -35,18 +40,14 @@
     <script src="js/cytoscape.min.js"></script>
     <script src="https://unpkg.com/cytoscape-cola@2.2.3/cytoscape-cola.js"></script>
     <script src="https://unpkg.com/cytoscape-popper@1.0.2/cytoscape-popper.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/fillTable.js"></script>
 
     <!-- demo src-->
 <script>
     {% include "code.js" %}
 
 </script>
-
-
-
-
-
-
 
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -95,27 +96,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <div class="split right">
 
+<table id="myTable">
+  <tr>
+      <th>Pubmed Id</th>
+      <th>Article name</th>
+      <th>Journal</th>
+      <th>Publication date</th>
+      <th>Score</th>
+  </tr>
+</table>
 
+</div>
+<br>
 
-
-    <div id="cy"></div>
-
-
-    <div id="config" class="config">
 </div>
 
 
-
-<div>
-    <table>
-
-        <li> dingen</li>
-    </table>
-
-</div>
-</div>
-
-  </div>
 
   </body>
 
@@ -124,6 +120,5 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
     </script>
 
-
-
+<script rel="script" src="js/chord.js"></script>
 

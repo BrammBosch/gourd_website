@@ -1,7 +1,22 @@
+from pprint import pprint
+
 from flask import Flask, render_template, jsonify, request
+from pymongo import MongoClient
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 
+
+def dataOphalen():
+    client = MongoClient("mongodb+srv://textminingdata-m49re.azure.mongodb.net/test",27107,username = "admin",password = "blaat1234")
+    db = client.gourd_goru
+    collection = db.searchWords
+    dictData = {}
+    dataBaseData = collection.find({})
+    for value in dataBaseData:
+        dictData.update({value["upper_term"].replace(" ", "_"): value["sub_terms"]})
+
+    pprint(dictData)
+    return dictData
 
 @app.route('/')
 def home():
@@ -10,15 +25,15 @@ def home():
 
 @app.route('/tool', methods=['GET', 'POST'])
 def tool():
-    lijstWaardes = {"bittergourd": ['plant', 'bitter', 'gen'], "obesitas": ['gen', 'symptoon'],
-                    "diabetes": ['ziekte', 'suiker', 'bloedsuiker']}
+    dictData = dataOphalen()
+
 
     javaScriptCode = ""
     multipleMenu = ""
     i = 0
     listKeys = []
 
-    for key, value in lijstWaardes.items():
+    for key, value in dictData.items():
         listKeys.append(key)
         javaScriptCode += "document.multiselect('#" + str(key) + "');"
         multipleMenu += "<select id =" + str(key) + " multiple>"
@@ -31,7 +46,7 @@ def tool():
         if request.form.get("submitButton") == "Use these terms":
             pass
 
-    return render_template('tool.html', dic=lijstWaardes, javaScriptCode=javaScriptCode, multipleMenu=multipleMenu)
+    return render_template('tool.html', dic=dictData, javaScriptCode=javaScriptCode, multipleMenu=multipleMenu)
 
 
 if __name__ == '__main__':

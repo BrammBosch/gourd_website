@@ -99,7 +99,7 @@ def input():
             selected_key = request.form.get("keyTerm")
             term_text = request.form.get('term')
             catagory_text = request.form.get('catagory')
-            text_mining_process = subprocess.Popen(["python3","textmining.py",term_text,catagory_text])
+            text_mining_process = subprocess.Popen(["python3","textmining.py",term_text,selected_key])
             push_data(selected_key, term_text, catagory_text)
 
 

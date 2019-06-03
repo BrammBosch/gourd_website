@@ -36,12 +36,13 @@ def push_data(selected_key, term_text, catagory_text):
                          password="blaat1234")
     db = client.gourd_goru
     collection = db.searchWords
-
-    selected_key = catagory_text.replace("_", " ")
+    print(selected_key)
+    catagory_text = catagory_text.replace("_", " ")
     if selected_key == "new":
         collection.insert_one({"upper_term": catagory_text, "sub_terms":[term_text]})
     else:
         dataBaseData = collection.find_one({"upper_term":selected_key})
+        print(selected_key)
         lijstData = dataBaseData["sub_terms"]
         lijstData.append(term_text)
 

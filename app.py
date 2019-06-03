@@ -37,7 +37,7 @@ def push_data(selected_key, term_text, catagory_text):
     db = client.gourd_goru
     collection = db.searchWords
 
-    catagory_text.replace("_", " ")
+    selected_key = catagory_text.replace("_", " ")
     if selected_key == "new":
         collection.insert_one({"upper_term": catagory_text, "sub_terms":[term_text]})
     else:

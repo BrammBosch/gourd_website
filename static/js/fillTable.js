@@ -21,3 +21,4 @@ cell5.innerHTML = score;
 
 
 }
+

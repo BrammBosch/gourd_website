@@ -1250,6 +1250,10 @@ float:left!important
 float:right!important
 }
 
+.w3-button{
+	background-color: white!important;
+}
+
 .w3-button:hover{
 color:#000!important;
 background-color:#ccc!important

@@ -17,37 +17,7 @@
 <script rel="script" src="js/multiselect.js"></script>
 <script rel="script" src="js/navbar.js"></script>
 <script rel="script" src="js/submit.js"></script>
-<script src="https://d3js.org/d3.v4.js"></script>
-<script rel="script" src="js/chord.js"></script>
 
-
-
-
-
-
-<!-- polyfills so the demo works on old browsers, like IE -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
-    <script src="https://unpkg.com/bluebird@3.5.2/js/browser/bluebird.js"></script>
-    <script src="https://unpkg.com/whatwg-fetch@3.0.0/dist/fetch.umd.js"></script>
-
-    <!-- libs used by demo -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
-    <script src="https://unpkg.com/webcola@3.3.8/WebCola/cola.min.js"></script>
-    <script src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.js"></script>
-    <script src="https://unpkg.com/tippy.js@2.6.0/dist/tippy.all.js"></script>
-
-    <!-- cy libs -->
-    <script src="js/cytoscape.min.js"></script>
-    <script src="https://unpkg.com/cytoscape-cola@2.2.3/cytoscape-cola.js"></script>
-    <script src="https://unpkg.com/cytoscape-popper@1.0.2/cytoscape-popper.js"></script>
-    <script src="js/table.js"></script>
-    <script src="js/fillTable.js"></script>
-
-    <!-- demo src-->
-<script>
-    {% include "code.js" %}
-
-</script>
 
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -65,7 +35,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="topnav" id="myTopnav">
   <a href="/">Home</a>
   <a href="/tool">The tool</a>
-  <a href="/">About</a>
+  <a href="/input">New words</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
@@ -83,10 +53,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
    {{ multipleMenu|safe }}
 
-<button type = "button" onclick="var el = document.getElementsByTagName('select'); getSelectValues(el);">
-    Use selected values</button></form>
+<button type = "submit" onclick="var el = document.getElementsByTagName('select'); var result = getSelectValues(el);">
+    Use selected values</button>
 
   <div id="output"></div>
+    </form>
   </div>
 
 
@@ -98,11 +69,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <table id="myTable">
   <tr>
-      <th>Pubmed Id</th>
-      <th>Article name</th>
-      <th>Journal</th>
-      <th>Publication date</th>
-      <th>Score</th>
+      <th onclick="table(0)">Pubmed Id</th>
+      <th onclick="table(1)">Article name</th>
+      <th onclick="table(2)">Journal</th>
+      <th onclick="table(3)">Publication date</th>
+      <th onclick="table(4)">Score</th>
   </tr>
 </table>
 
@@ -119,6 +90,4 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     {{ javaScriptCode|safe }}
 
     </script>
-
-<script rel="script" src="js/chord.js"></script>
 

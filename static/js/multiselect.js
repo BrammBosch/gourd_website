@@ -1,3 +1,11 @@
+/*
+This is code used the make to multiselect checkbox menus on the tool page.
+It has been modified to fit our needs
+Source: https://github.com/mneofit/multiselect/tree/master/scripts
+
+ */
+
+
 if (!m_helper) var m_helper = {
     removeNode: function(a) {
         var b = document.getElementById(a);

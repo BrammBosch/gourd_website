@@ -1,4 +1,9 @@
 function fill(pubmedId, articleName, journal, pubDate,score) {
+    /*
+    This function fills the table used on the tool page
+    return: None, it is pasted straight onto the page
+
+     */
 var table = document.getElementById("myTable");
 
 var row = table.insertRow(-1);

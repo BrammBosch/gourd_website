@@ -1,4 +1,7 @@
 function sortTable(n) {
+  /*
+  This function sorts the table seen on the tool page.
+   */
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
   switching = true;
@@ -51,4 +54,5 @@ function sortTable(n) {
       }
     }
   }
+
 }

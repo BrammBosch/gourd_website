@@ -13,7 +13,7 @@ var cell3 = row.insertCell(2);
 var cell4 = row.insertCell(3);
 var cell5 = row.insertCell(4);
 
-cell1.innerHTML = pubmedId;
+cell1.innerHTML = '<a href = "https://www.ncbi.nlm.nih.gov/pubmed/'+pubmedId+'"target="_blank">'+pubmedId+'</a>';
 cell2.innerHTML = articleName;
 cell3.innerHTML = journal;
 cell4.innerHTML = pubDate;

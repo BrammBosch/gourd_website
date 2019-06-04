@@ -4,14 +4,15 @@
 <title>Gourd goru</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="css/multiselect.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/table.css">
-
+<link href="css/graph.css" rel="stylesheet" type="text/css" />
+<link href="css/vis-network.min.css" rel="stylesheet" type="text/css" />
 
 
 <script rel="script" src="js/multiselect.js"></script>
@@ -20,74 +21,83 @@
 
 
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    body, h1, h2, h3, h4, h5, h6 {
+        font-family: "Lato", sans-serif
+    }
+
+    .w3-bar, h1, button {
+        font-family: "Montserrat", sans-serif
+    }
 
 </style>
-
 
 
 <body>
 
 <!-- Navbar -->
 <nav>
-<div class="topSection">
-<div class="topnav" id="myTopnav">
-  <a href="/">Home</a>
-  <a href="/tool">The tool</a>
-  <a href="/input">New words</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>
+    <div class="topSection">
+        <div class="topnav" id="myTopnav">
+            <a href="/">Home</a>
+            <a href="/tool">The tool</a>
+            <a href="/input">New words</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
 
-</div>
+    </div>
 </nav>
-  
-  <div>
-     <div class="split left">
-  <div class="centered">
-    <p>
-<div class="sidenav">
-<form name = "formulier" method="post">
 
-   {{ multipleMenu|safe }}
+<div>
+    <div class="split left">
+        <div class="centered">
+            <p>
+            <div class="sidenav">
+                <form name="formulier" method="post">
 
-<button type = "submit" onclick="var el = document.getElementsByTagName('select'); var result = getSelectValues(el);">
-    Use selected values</button>
+                    {{ multipleMenu|safe }}
 
-  <div id="output"></div>
-    </form>
-  </div>
+                    <button type="button"
+                            onclick="var el = document.getElementsByTagName('select'); var result = getSelectValues(el);">
+                        Use selected values
+                    </button>
+
+                    <div id="output"></div>
+                </form>
+            </div>
 
 
-    </p>
-  </div>
+            </p>
+        </div>
+    </div>
+
+    <div class="split right">
+
+        <table id="myTable">
+            <tr>
+                <th onclick="sortTable(0)">Pubmed Id</th>
+                <th onclick="sortTable(1)">Article name</th>
+                <th onclick="sortTable(2)">Journal</th>
+                <th onclick="sortTable(3)">Publication date</th>
+                <th onclick="sortTable(4)">Score</th>
+            </tr>
+        </table>
+
+    </div>
+    <br>
+
 </div>
 
-<div class="split right">
 
-<table id="myTable">
-  <tr>
-      <th onclick="sortTable(0)">Pubmed Id</th>
-      <th onclick="sortTable(1)">Article name</th>
-      <th onclick="sortTable(2)">Journal</th>
-      <th onclick="sortTable(3)">Publication date</th>
-      <th onclick="sortTable(4)">Score</th>
-  </tr>
-</table>
-
-</div>
-<br>
-
-</div>
-
-
-
-  </body>
+</body>
 
 <script>
     {{ javaScriptCode|safe }}
 
-    </script>
-
+</script>
+<script>
+    $("#MyButton").click(function() {
+    $("#test").load("graph.html > *");
+  });
+</script>

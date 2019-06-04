@@ -1,0 +1,10 @@
+
+html, body {
+    font: 10pt arial;
+}
+
+#mynetwork {
+    max-width: 95%;
+    height: 80%;
+    border: 1px solid red;
+}

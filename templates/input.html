@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Gourd</title>
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
-    <script type="text/javascript" src='js/showElement.js'> </script>
+    <script type="text/javascript" src='js/showElement.js'></script>
 
 </head>
 <body>
 <nav>
-<div class="topSection">
-<div class="topnav" id="myTopnav">
-  <a href="/">Home</a>
-  <a href="/tool">The tool</a>
-  <a href="/input">New words</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>
+    <div class="topSection">
+        <div class="topnav" id="myTopnav">
+            <a href="/">Home</a>
+            <a href="/tool">The tool</a>
+            <a href="/input">New words</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
 
-</div>
+    </div>
 </nav>
 
 <div class="text">
@@ -34,18 +34,18 @@
     Select one of these catagories to add new keywords to.
 </div>
 <div class="inputfield">
- <form method="post">
+    <form method="post">
 
-     {{ inputTable|safe }}
-    <br>
-      <div class="catagory">
-    <input type="text" name = "catagory" placeholder="New catagory">
-     </div>
+        {{ inputTable|safe }}
+        <br>
+        <div class="catagory">
+            <input type="text" name="catagory" placeholder="New catagory">
+        </div>
 
-     <input type="text" class ="term" name="term" placeholder="New term">
+        <input type="text" class="term" name="term" placeholder="New term">
 
-     <input type="submit" name="submit_button" value="Add">
-</form>
+        <input type="submit" name="submit_button" value="Add">
+    </form>
 
 </div>
 

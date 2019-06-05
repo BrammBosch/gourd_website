@@ -1,10 +1,9 @@
 function showField(value) {
 
     valueText = value.options[value.selectedIndex].value
-    if(valueText == "new"){
+    if (valueText == "new") {
         document.getElementsByClassName("catagory")[0].style.display = "block";
-    }
-    else{
+    } else {
         document.getElementsByClassName("catagory")[0].style.display = "none";
     }
 }

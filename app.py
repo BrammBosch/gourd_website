@@ -1,20 +1,21 @@
-from flask import Flask, render_template,jsonify, request
+from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 import subprocess
 from itertools import product
 import json
 
-
-
 app = Flask(__name__, static_folder="static", static_url_path="")
 
 
+def retrieve_data():
+    """In this function a connection is made with the Mongo database and is where we put all our queries.
+    All the keywords from the database are retrieved, these are put in a 2d list for each term by comparing them to the dict_data.
+    All possible pairs between the terms in the 2d list are generated and each pair is checked for possible connections in the database,
+    if this is true the pairs will be assigned the score from the database and the articles will be put in a list in order to generate an
+    HTML table.
 
-def data_ophalen():
-    """
-    In this function a connection is made with the Mongo database and is where we put all our queries.
-
-    :return: The data from the database in dictionarys
+    :return: All data from the keyword database in dictionarys, a list with the pairs of keywords and their score, a list of all selected keywords
+    and a list containing the information of each article.
     """
     client = MongoClient("mongodb+srv://textminingdata-m49re.azure.mongodb.net/test", 27107, username="admin",
                          password="blaat1234")
@@ -60,11 +61,21 @@ def data_ophalen():
                         i += 1
                     all_graph_list.append([item["keywords"][0], item["keywords"][1], score])
 
+    return dict_data, all_graph_list, all_key_list, all_table_list
 
-    return dict_data,all_graph_list,all_key_list,all_table_list
 
+def graph(dictData, search_words):
+    """This function is called when the button to use the selected keywords is pressed in a post method.
+    The selected keywords from the menus in the website are compared to the keywords in the database.
+    All possible pairs are made from the keywords which are then given their score.
+    These pairs with the scores are the edges in the graph while the keywords are the nodes.
+    A list of all articles related to the keywords is generated and put into a table.
 
-def graph(dictData,search_words):
+    :param dictData: Dictionary with all keywords from the database.
+    :param search_words: Alle selected keywords from the menus in the website.
+    :return: A list with the pairs of keywords and their score, a list of all selected keywords
+    and a list containing the information of each article.
+    """
     client = MongoClient("mongodb+srv://textminingdata-m49re.azure.mongodb.net/test", 27107, username="admin",
                          password="blaat1234")
     db = client.gourd_goru
@@ -78,14 +89,13 @@ def graph(dictData,search_words):
 
     for line in search_words:
         word_list = line.split(',')
-        for key,value in dictData.items():
+        for key, value in dictData.items():
             term_list = []
             for item in word_list:
                 if item in value:
                     term_list.append(item)
             search_word_list.append(term_list)
 
-    #print(search_word_list)
     for value in dictData.values():
         for line in value:
             if any(line in sublist for sublist in search_word_list):
@@ -109,42 +119,40 @@ def graph(dictData,search_words):
                         i += 1
                     graph_list.append([item["keywords"][0], item["keywords"][1], score])
 
-    #print(key_list, graph_list)
     return graph_list, key_list, table_list
 
 
 def push_data(selected_key, term_text, catagory_text):
-    """
+    """ This function is called when the button on the new words page is pressed.
+    It looks whether the user wants to add a keyword to an existing catagory or make a new catagory.
+    It makes a connection to the database and puts the new keywords in the right catagory.
 
-    :param selected_key: selected_key uses
-    :param term_text:
-    :param catagory_text:
-    :return:
+    :param selected_key: selected_key is the catagory selected from the dropdown menu.
+    :param term_text: term_text is the term which the user wants to be added.
+    :param catagory_text: If the user chooses to add a new catagory they will also have to add the new
+    :return: No return is needed because all the data is pushed in a database.
     """
     client = MongoClient("mongodb+srv://textminingdata-m49re.azure.mongodb.net/test", 27107, username="admin",
                          password="blaat1234")
     db = client.gourd_goru
     collection = db.searchWords
-    print(selected_key)
     catagory_text = catagory_text.replace("_", " ")
     if selected_key == "new":
-        collection.insert_one({"upper_term": catagory_text, "sub_terms":[term_text]})
+        collection.insert_one({"upper_term": catagory_text, "sub_terms": [term_text]})
     else:
-        dataBaseData = collection.find_one({"upper_term":selected_key})
-        print(selected_key)
+        dataBaseData = collection.find_one({"upper_term": selected_key})
         lijstData = dataBaseData["sub_terms"]
         lijstData.append(term_text)
 
-        collection.update_one({"upper_term":selected_key}, {"$set":{"sub_terms":lijstData}})
+        collection.update_one({"upper_term": selected_key}, {"$set": {"sub_terms": lijstData}})
+
 
 def make_menu():
-    """
-    This function uses the retrieve data function and loops over this te write javascript later used in the html page.
+    """This function uses the retrieve data function and loops over this te write javascript later used in the html page.
     It also filles the menu's shown on the tool page
     :return: A string filled with java script and html code to fill the menu
     """
-    dict_data, all_graph_list, all_key_list, all_table_list = data_ophalen()
-
+    dict_data, all_graph_list, all_key_list, all_table_list = retrieve_data()
 
     java_script_code = ""
     multiple_menu = ""
@@ -162,25 +170,22 @@ def make_menu():
 
     return java_script_code, multiple_menu
 
+
 @app.route('/')
 def home():
-    """
-    :return: Using render template return the home page
+    """:return: Using render template return the home page
     """
     return render_template('index.html')
 
 
 @app.route('/input', methods=['GET', 'POST'])
 def input():
+    """:return: Using render template return the page used for database input
     """
 
-    :return: Using render template return the page used for database input
-    """
-
-    dict_data, all_graph_list, all_key_list, all_table_list = data_ophalen()
+    dict_data, all_graph_list, all_key_list, all_table_list = retrieve_data()
     input_table = "<select class='formKey' id='keyTerm' name = keyTerm onchange='showField(this);'>"
-    print(type(dict_data))
-    print(dict_data)
+
     for key, value in dict_data.items():
         input_table += "<option value=" + key + ">" + key + "</option>"
 
@@ -191,23 +196,18 @@ def input():
             selected_key = request.form.get("keyTerm")
             term_text = request.form.get('term')
             catagory_text = request.form.get('catagory')
-            text_mining_process = subprocess.Popen(["python3","textmining.py",term_text,selected_key])
+            text_mining_process = subprocess.Popen(["python3", "textmining.py", term_text, selected_key])
             push_data(selected_key, term_text, catagory_text)
 
-
-
-    return render_template('input.html',inputTable = input_table)
+    return render_template('input.html', inputTable=input_table)
 
 
 @app.route('/tool', methods=['GET', 'POST'])
 def tool():
-    """
-
-    :return: using render template return the tool page.
+    """:return: using render template return the tool page.
     Also returns java script code in a string and html code in a string to be used in the tool page.
     """
-    print(request.method)
-    dict_data, all_graph_list, all_key_list, all_table_list = data_ophalen()
+    dict_data, all_graph_list, all_key_list, all_table_list = retrieve_data()
 
     javaScriptCode = ""
     multipleMenu = ""
@@ -229,11 +229,13 @@ def tool():
         search_words = []
         search_words.append(request.args.get('value'))
         graph_list, key_list, table_list = graph(dict_data, search_words)
-        return render_template('graph.html', dic=dict_data, javaScriptCode=javaScriptCode, multipleMenu=multipleMenu,
-                               table=table_list, graph=graph_list, keys=key_list)
+        return jsonify({'reply': 'succes'}), render_template('graph.html', dic=dict_data, javaScriptCode=javaScriptCode,
+                                                             multipleMenu=multipleMenu,
+                                                             table=table_list, graph=graph_list, keys=key_list)
 
     else:
-        return render_template('graph.html', dic=dict_data, javaScriptCode=javaScriptCode, multipleMenu=multipleMenu,table=all_table_list, graph=all_graph_list, keys=all_key_list)
+        return render_template('graph.html', dic=dict_data, javaScriptCode=javaScriptCode, multipleMenu=multipleMenu,
+                               table=all_table_list, graph=all_graph_list, keys=all_key_list)
 
 
 if __name__ == '__main__':

@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="css/multiselect.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/table.css">
-<link href="css/graph.css" rel="stylesheet" type="text/css" />
-<link href="css/vis-network.min.css" rel="stylesheet" type="text/css" />
+<link href="css/graph.css" rel="stylesheet" type="text/css"/>
+<link href="css/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
 
 <script rel="script" src="js/multiselect.js"></script>
@@ -22,151 +22,157 @@
 
 
 <!-- polyfills so the demo works on old browsers, like IE -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
-    <script src="https://unpkg.com/bluebird@3.5.2/js/browser/bluebird.js"></script>
-    <script src="https://unpkg.com/whatwg-fetch@3.0.0/dist/fetch.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
+<script src="https://unpkg.com/bluebird@3.5.2/js/browser/bluebird.js"></script>
+<script src="https://unpkg.com/whatwg-fetch@3.0.0/dist/fetch.umd.js"></script>
 
-    <!-- libs used by demo -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
-    <script src="https://unpkg.com/webcola@3.3.8/WebCola/cola.min.js"></script>
-    <script src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.js"></script>
-    <script src="https://unpkg.com/tippy.js@2.6.0/dist/tippy.all.js"></script>
+<!-- libs used by demo -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
+<script src="https://unpkg.com/webcola@3.3.8/WebCola/cola.min.js"></script>
+<script src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.js"></script>
+<script src="https://unpkg.com/tippy.js@2.6.0/dist/tippy.all.js"></script>
 
-    <!-- graph libs -->
-    <script rel="script" src="js/vis.js"></script>
-    <script type="text/javascript" src='js/fillTable.js'> </script>
-    <script type="text/javascript" src='js/table.js'> </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <!-- demo src-->
+<!-- graph libs -->
+<script rel="script" src="js/vis.js"></script>
+<script type="text/javascript" src='js/fillTable.js'></script>
+<script type="text/javascript" src='js/table.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!-- demo src-->
 
 <script type="text/javascript">
-            var network = null;
-            var nodes = [];
-            var edges = [];
-            var graphArray = {{ graph|tojson }};
-            var nodesArray = {{ keys|tojson }};
-            console.log(graphArray)
-            function draw() {
-                var i;
-                for (i = 0; i < nodesArray.length; i++) {
-                    nodes.push({
-                        id: nodesArray[i],
-                        value: 40,
-                        label: nodesArray[i],
-                    })
+    var network = null;
+    var nodes = [];
+    var edges = [];
+    var graphArray = {{ graph|tojson }};
+    var nodesArray = {{ keys|tojson }};
 
-                }
+    function draw() {
+        var i;
+        for (i = 0; i < nodesArray.length; i++) {
+            nodes.push({
+                id: nodesArray[i],
+                value: 40,
+                label: nodesArray[i],
+            })
 
-                for (i = 0; i < graphArray.length; i++) {
-                    edges.push({
-                        from: graphArray[i][0],
-                        to: graphArray[i][1],
-                        value: graphArray[i][2],
-                        title: 'score:' + graphArray[i][2],
-                        length: 700
-                    })
-                }
+        }
 
-                // Instantiate our network object.
-                var container = document.getElementById('mynetwork');
-                var data = {
-                    nodes: nodes,
-                    edges: edges
-                };
-                var options = {
-                    interaction: {hover: true},
-                    nodes: {
-                        shape: 'dot',
-                        scaling: {
-                            label: {
-                                min: 8,
-                                max: 50
-                            }
-                        }
+        for (i = 0; i < graphArray.length; i++) {
+            edges.push({
+                from: graphArray[i][0],
+                to: graphArray[i][1],
+                value: graphArray[i][2],
+                title: 'score:' + graphArray[i][2],
+                length: 700
+            })
+        }
+
+        // Instantiate our network object.
+        var container = document.getElementById('mynetwork');
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {
+            interaction: {hover: true},
+            nodes: {
+                shape: 'dot',
+                scaling: {
+                    label: {
+                        min: 8,
+                        max: 50
                     }
-                };
-                network = new vis.Network(container, data, options);
-
-                network.on("selectEdge", function (params) {
-                    console.log('selectEdge Event:', params);
-                });
-
+                }
             }
+        };
+        network = new vis.Network(container, data, options);
+
+        network.on("selectEdge", function (params) {
+            console.log('selectEdge Event:', params);
+        });
+
+    }
 </script>
 
 
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    body, h1, h2, h3, h4, h5, h6 {
+        font-family: "Lato", sans-serif
+    }
+
+    .w3-bar, h1, button {
+        font-family: "Montserrat", sans-serif
+    }
 
 </style>
 
 
-
-<body onload = "draw()">
+<body onload="draw()">
 
 <!-- Navbar -->
 <nav>
-<div class="topSection">
-<div class="topnav" id="myTopnav">
-  <a href="/">Home</a>
-  <a href="/tool">The tool</a>
-  <a href="/input">New words</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>
+    <div class="topSection">
+        <div class="topnav" id="myTopnav">
+            <a href="/">Home</a>
+            <a href="/tool">The tool</a>
+            <a href="/input">New words</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
 
-</div>
+    </div>
 </nav>
 
-  <div>
-     <div class="split left">
-  <div class="centered">
-    <p>
-<div class="sidenav">
-<form name = "formulier" method="post">
+<div>
+    <div class="split left">
+        <div class="centered">
+            <p>
+            <div class="sidenav">
+                <form name="formulier" method="post">
 
-   {{ multipleMenu|safe }}
+                    {{ multipleMenu|safe }}
 
-<button id= "refresh" type = "button" onclick="var el = document.getElementsByTagName('select'); getSelectValues(el);">
-    Use selected values</button></form>
+                    <button id="refresh" type="button"
+                            onclick="var el = document.getElementsByTagName('select'); getSelectValues(el);">
+                        Use selected values
+                    </button>
+                </form>
 
-  <div id="output"></div>
-  </div>
+            </div>
 
-    </p>
-  </div>
+            </p>
+        </div>
+    </div>
+
+    <div class="split right">
+        <div id="mynetwork">
+        </div>
+        <table id="myTable">
+            <tr>
+                <th onclick="sortTable(0)">Pubmed Id</th>
+                <th onclick="sortTable(1)">Article name</th>
+                <th onclick="sortTable(2)">Journal</th>
+                <th onclick="sortTable(3)">Publication date</th>
+                <th onclick="sortTable(4)">Score</th>
+            </tr>
+            <script>
+                var tableArray = {{ table|tojson }};
+                var i;
+                for (i = 0; i < 100; i++) {
+                    fill(tableArray[i][2], tableArray[i][3], tableArray[i][4], tableArray[i][5], tableArray[i][6])
+                }
+            </script>
+        </table>
+
+    </div>
+    <br>
+
 </div>
 
-<div class="split right">
-<div id="mynetwork">
-</div>
-<table id="myTable">
-  <tr>
-      <th onclick="sortTable(0)">Pubmed Id</th>
-      <th onclick="sortTable(1)">Article name</th>
-      <th onclick="sortTable(2)">Journal</th>
-      <th onclick="sortTable(3)">Publication date</th>
-      <th onclick="sortTable(4)">Score</th>
-  </tr>
-    <script>
-        var tableArray = {{ table|tojson }};
-        var i;
-        for(i = 0;i < 100;i++){
-            fill(tableArray[i][2],tableArray[i][3],tableArray[i][4],tableArray[i][5],tableArray[i][6])
-        }
-    </script>
-</table>
-
-</div>
-<br>
-
-</div>
-
-  </body>
+</body>
 
 <script>
     {{ javaScriptCode|safe }}
 
-    </script>
+</script>
